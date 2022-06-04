@@ -36,26 +36,16 @@ iptables -A INPUT -i tun0 -p tcp -j DROP
 # 感谢 @stingshen https://github.com/Hagb/docker-easyconnect/issues/6
 # ( while true; do sleep 5 ; iptables -D SANGFOR_VIRTUAL -j DROP 2>/dev/null ; done )&
 
-if [ -n "$_EC_CLI" ]; then
-	ln -s /usr/share/sangfor/EasyConnect/resources/{conf_${EC_VER},conf}
-	exec start-sangfor.sh
-fi
 
 [ -n "$EXIT" ] && MAX_RETRY=0
 
 # 登录信息持久化处理
-## 持久化配置文件夹 感谢 @hexid26 https://github.com/Hagb/docker-easyconnect/issues/21
-[ -d ~/conf ] || cp -a /usr/share/sangfor/EasyConnect/resources/conf_backup ~/conf
-[ -e ~/easy_connect.json ] && mv ~/easy_connect.json ~/conf/easy_connect.json # 向下兼容
-## 默认使用英语：感谢 @forest0 https://github.com/Hagb/docker-easyconnect/issues/2#issuecomment-658205504
-[ -e ~/conf/easy_connect.json ] || echo '{"language": "en_US"}' > ~/conf/easy_connect.json
 
 export DISPLAY
 
 if [ "$TYPE" != "X11" -a "$TYPE" != "x11" ]
 then
 	# container 再次运行时清除 /tmp 中的锁，使 container 能够反复使用。
-	# 感谢 @skychan https://github.com/Hagb/docker-easyconnect/issues/4#issuecomment-660842149
 	rm -rf /tmp
 	mkdir /tmp
 
@@ -72,4 +62,4 @@ then
 	echo "$ECPASSWORD" | DISPLAY=:1 xclip -selection c
 fi
 
-exec start-sangfor.sh
+exec start-service.sh

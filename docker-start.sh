@@ -1,0 +1,1 @@
+docker run --name scvpn -d --device /dev/net/tun --cap-add NET_ADMIN  --mac-address=f8:4d:89:99:92:fa -e FAKE_HWADDR=f8:4d:89:99:92:fa -e PASSWORD=xxxx -v $HOME/.scvpn:/root -p 10.129.0.11:5902:5901 -p 10.129.0.11:1083:1080 -p 10.129.0.11:8902:8888 flashcatcloud/scvpn:1.0.0

@@ -9,23 +9,10 @@ RUN if [ "${BUILD_ENV}" = "local" ]; then sed -i s/deb.debian.org/mirrors.aliyun
         dante-server tigervnc-standalone-server tigervnc-common dante-server psmisc flwm x11-utils\
         busybox libssl-dev iproute2 tinyproxy-bin
 
-ARG EC_URL
-
-RUN cd tmp &&\
-    busybox wget "${EC_URL}" -O EasyConnect.deb &&\
-    dpkg -i EasyConnect.deb && rm EasyConnect.deb
+COPY ./HillstoneVPN /opt/HillstoneVPN
 
 COPY ./docker-root /
 
-RUN rm -f /usr/share/sangfor/EasyConnect/resources/conf/easy_connect.json &&\
-    mv /usr/share/sangfor/EasyConnect/resources/conf/ /usr/share/sangfor/EasyConnect/resources/conf_backup &&\
-    ln -s /root/conf /usr/share/sangfor/EasyConnect/resources/conf
-
 COPY --from=fake-hwaddr fake-hwaddr/fake-hwaddr.so /usr/local/lib/fake-hwaddr.so
-
-#ENV TYPE="" PASSWORD="" LOOP=""
-#ENV DISPLAY
-
-VOLUME /root/ /usr/share/sangfor/EasyConnect/resources/logs/
 
 CMD ["start.sh"]
