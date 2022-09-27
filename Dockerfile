@@ -9,7 +9,7 @@ RUN if [ "${BUILD_ENV}" = "local" ]; then sed -i s/deb.debian.org/mirrors.aliyun
         dante-server tigervnc-standalone-server tigervnc-common dante-server psmisc flwm x11-utils\
         busybox libssl-dev iproute2 tinyproxy-bin
 
-COPY ./HillstoneVPN /opt/HillstoneVPN
+COPY ./MotionPro /opt/MotionPro
 
 COPY ./docker-root /
 

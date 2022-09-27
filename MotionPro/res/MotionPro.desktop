@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=MotionPro
+Comment=MotionPro
+Exec=/opt/MotionPro/MotionPro.sh
+Icon=/opt/MotionPro/res/icon.png
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=Network;
